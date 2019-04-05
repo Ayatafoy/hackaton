@@ -4,7 +4,7 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='src',
+    name='Ottepel',
     version='0.1',
     description='Ottepel hackaton',
     classifiers=['Programming Language :: Python :: 3.6.6'],
