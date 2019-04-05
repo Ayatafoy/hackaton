@@ -3,8 +3,6 @@ import numpy as np
 import cv2
 import random
 import torch
-import torch
-from PIL import Image
 
 
 class Resize(object):

@@ -1,13 +1,5 @@
 import os
 import pandas as pd
-import nltk
-import nltk.data
-import re
-
-nltk.download('punkt')
-
-tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-
 
 class DataSetPreprocessor:
     def __init__(self):
