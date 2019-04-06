@@ -25,7 +25,7 @@ class SeResNet(torch.nn.Module):
         x = self.max_pool(x)
         x = x.view(x.size(0), -1)
         x = self.linear1(x)
-        x = self.batch_norm2(x)
+        # x = self.batch_norm2(x)
         x = torch.nn.ReLU()(x)
         x = self.last_linear(x)
         return x
