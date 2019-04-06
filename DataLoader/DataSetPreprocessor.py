@@ -41,8 +41,8 @@ class DataSetPreprocessor:
                                  'transmission', 'rudder', 'car_brand_cat',
                                  'car_model_cat', 'body_cat', 'color_cat', 'engine_type_cat', 'transmission_cat',
                                  'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']].values
-            categorial_features = features[:, 0:-4]
-            continous_features = features[:, -4:]
+            categorial_features = features[:, 0:-1]
+            continous_features = features[:, -1:]
             continous_features = self.scaler.fit_transform(continous_features)
             self.features = np.concatenate((categorial_features, continous_features), axis=1)
 
