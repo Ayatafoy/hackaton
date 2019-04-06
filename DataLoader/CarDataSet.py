@@ -13,7 +13,7 @@ from DataLoader.Transformations import Resize, ToTensor
 import torch.utils.data as data
 
 
-class FeatureEmbeddingsDataset(Dataset):
+class CarDataSet(Dataset):
 
     def __init__(self, features, path_to_images, transform=transforms.Compose([Resize(224), ToTensor()])):
         self.features = features.values
@@ -74,5 +74,5 @@ if __name__ == "__main__":
     processor = DataSetPreprocessor()
     features = processor.get_features(data_dir)
     print(len(features))
-    input_data_set = FeatureEmbeddingsDataset(features, data_dir)
+    input_data_set = CarDataSet(features, data_dir)
     train_data, test_data = model_selection.train_test_split(input_data_set, test_size=0.1, random_state=0)

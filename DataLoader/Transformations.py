@@ -48,7 +48,7 @@ class ToTensor(object):
         # torch image: C X H X W
         image = image.transpose((2, 0, 1))
 
-        return {'image': torch.tensor(np.array(image, dtype=np.long)),
+        return {'image': torch.tensor(np.array(image, dtype=np.float32)),
                 'car_brand': torch.tensor(np.array(sample['car_brand'], dtype=np.long)),
                 'car_model': torch.tensor(np.array(sample['car_model'], dtype=np.long)),
                 'body': torch.tensor(np.array(sample['body'], dtype=np.long)),
@@ -56,8 +56,8 @@ class ToTensor(object):
                 'engine_type': torch.tensor(np.array(sample['engine_type'], dtype=np.long)),
                 'transmission': torch.tensor(np.array(sample['transmission'], dtype=np.long)),
                 'rudder': torch.tensor(np.array(sample['rudder'], dtype=np.long)),
-                'price': torch.tensor(np.array(sample['price'], dtype=np.long)),
-                'year': torch.tensor(np.array(sample['year'], dtype=np.long)),
-                'engine_volume': torch.tensor(np.array(sample['engine_volume'], dtype=np.float)),
-                'engine_power': torch.tensor(np.array(sample['engine_power'], dtype=np.long)),
+                'price': torch.tensor(np.array(sample['price'], dtype=np.float32)),
+                'year': torch.tensor(np.array(sample['year'], dtype=np.float32)),
+                'engine_volume': torch.tensor(np.array(sample['engine_volume'], dtype=np.float32)),
+                'engine_power': torch.tensor(np.array(sample['engine_power'], dtype=np.float32)),
                 }

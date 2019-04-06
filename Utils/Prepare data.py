@@ -17,13 +17,13 @@ def load_picture(path_to_pict, pict_name, path_to_load):
     im.save(path_to_pict_load)
 
 
-base_dir = "/Users/aromanov/Desktop/Cars"
+base_dir = "/Users/aromanov/Desktop/Cars new"
 cars = os.listdir(base_dir)
 if '.DS_Store' in cars:
     cars.remove('.DS_Store')
 cars = [car[0:-4] for car in cars]
 for car_name in cars:
-    path_to_product_data = os.path.join("/Users/aromanov/Desktop/Cars", car_name)
+    path_to_product_data = os.path.join("/Users/aromanov/Desktop/Cars new", car_name)
     if os.path.exists(path_to_product_data):
         for the_file in os.listdir(path_to_product_data):
             file_path = os.path.join(path_to_product_data, the_file)
@@ -35,7 +35,7 @@ for car_name in cars:
     else:
         os.mkdir(path_to_product_data)
 
-    path_to_item_features = "/Users/aromanov/Desktop/Cars/{}.csv".format(car_name)
+    path_to_item_features = "/Users/aromanov/Desktop/Cars new/{}.csv".format(car_name)
     products = pd.read_csv(path_to_item_features, engine='python')
     products = products.fillna('')
     cars = pd.DataFrame(columns=['img_id', 'car_brand', 'car_model', 'price', 'year', 'body', 'color',
