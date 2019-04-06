@@ -40,11 +40,10 @@ class DataSetPreprocessor:
             features = features[['img_id', 'path_to_img', 'car_brand', 'car_model', 'body', 'color', 'engine_type',
                                  'transmission', 'rudder', 'car_brand_cat',
                                  'car_model_cat', 'body_cat', 'color_cat', 'engine_type_cat', 'transmission_cat',
-                                 'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']].values
-            categorial_features = features[:, 0:-1]
-            continous_features = features[:, -1:]
-            continous_features = self.scaler.fit_transform(continous_features)
-            self.features = np.concatenate((categorial_features, continous_features), axis=1)
+                                 'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']]
+
+            features['price'] = self.scaler.fit_transform(features['price'].values.reshape(-1, 1))
+            self.features = features
 
         return self.features
 
