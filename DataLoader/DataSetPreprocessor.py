@@ -42,7 +42,8 @@ class DataSetPreprocessor:
                                  'car_model_cat', 'body_cat', 'color_cat', 'engine_type_cat', 'transmission_cat',
                                  'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']]
 
-            features['price'] = self.scaler.fit_transform(features['price'].values.reshape(-1, 1))
+            self.max_price = max(features['price'])
+            features['price'] = features['price'].apply(lambda price: price / self.max_price)
             self.features = features
 
         return self.features
