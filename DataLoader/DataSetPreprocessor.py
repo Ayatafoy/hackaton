@@ -1,14 +1,14 @@
 import os
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 
 
 class DataSetPreprocessor:
     def __init__(self):
         self.features = None
         self.label_map = None
-        self.scaler = MinMaxScaler()
+        self.scaler = StandardScaler()
 
     def get_features(self, base_dir):
 
@@ -42,8 +42,7 @@ class DataSetPreprocessor:
                                  'car_model_cat', 'body_cat', 'color_cat', 'engine_type_cat', 'transmission_cat',
                                  'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']]
 
-            self.max_price = max(features['price'])
-            features['price'] = features['price'].apply(lambda price: price / self.max_price)
+            features['price'] = self.scaler.fit_transform(features['price'].values.reshape(len(features), 1))
             self.features = features
 
         return self.features
