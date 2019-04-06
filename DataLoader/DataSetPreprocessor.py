@@ -1,14 +1,14 @@
 import os
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 
 
 class DataSetPreprocessor:
     def __init__(self):
         self.features = None
         self.label_map = None
-        self.scaler = StandardScaler()
+        self.scaler = MinMaxScaler()
 
     def get_features(self, base_dir):
 
