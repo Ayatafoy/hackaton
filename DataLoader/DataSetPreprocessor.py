@@ -1,13 +1,17 @@
 import os
+import numpy as np
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
 
 
 class DataSetPreprocessor:
     def __init__(self):
         self.features = None
         self.label_map = None
+        self.scaler = MinMaxScaler()
 
     def get_features(self, base_dir):
+
         if self.features is None:
             products = os.listdir(base_dir)
             if '.DS_Store' in products:
@@ -36,8 +40,11 @@ class DataSetPreprocessor:
             features = features[['img_id', 'path_to_img', 'car_brand', 'car_model', 'body', 'color', 'engine_type',
                                  'transmission', 'rudder', 'car_brand_cat',
                                  'car_model_cat', 'body_cat', 'color_cat', 'engine_type_cat', 'transmission_cat',
-                                 'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']]
-            self.features = features
+                                 'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']].values
+            categorial_features = features[:, 0:-4]
+            continous_features = features[:, -4:]
+            continous_features = self.scaler.fit_transform(continous_features)
+            self.features = np.concatenate((categorial_features, continous_features), axis=1)
 
         return self.features
 
