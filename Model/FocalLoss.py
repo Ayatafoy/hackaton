@@ -34,3 +34,29 @@ class FocalLoss(nn.Module):
         loss = -1 * (1-pt)**self.gamma * logpt
         if self.size_average: return loss.mean()
         else: return loss.sum()
+
+
+
+# Accuracy car brand: 0.2665709008824133
+# Accuracy car model: 0.04247896572953006
+# Accuracy body: 0.24379232505643342
+# Accuracy color: 0.22593884670634107
+# Accuracy engine type: 0.22717012107531295
+# Accuracy transmission: 0.37348655858813873
+# Roc auc score rudder: 0.49723037807425835
+
+# Accuracy car brand: 0.9437718038169506
+# Accuracy car model: 0.8214652164990766
+# Accuracy body: 0.8586086599630618
+# Accuracy color: 0.8251590396059922
+# Accuracy engine type: 0.9408988302893495
+# Accuracy transmission: 0.7775497640057459
+# Roc auc score rudder: 0.6520735485072594
+
+# Accuracy car brand: 0.95752103427047
+# Accuracy car model: 0.8504001641699158
+# Accuracy body: 0.8727683152062384
+# Accuracy color: 0.8440385799302278
+# Accuracy engine type: 0.9437718038169506
+# Accuracy transmission: 0.7847321978247486
+# Roc auc score rudder: 0.6564627732942556
