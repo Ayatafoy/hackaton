@@ -41,10 +41,7 @@ class DataSetPreprocessor:
                                  'car_model_cat', 'body_cat', 'color_cat', 'engine_type_cat', 'transmission_cat',
                                  'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']]
 
-            features['price'] = self.scaler.fit_transform(features['price'].values.reshape(len(features), 1))
-            features['year'] = self.scaler.fit_transform(features['year'].values.reshape(len(features), 1))
-            features['engine_volume'] = self.scaler.fit_transform(features['engine_volume'].values.reshape(len(features), 1))
-            features['engine_power'] = self.scaler.fit_transform(features['engine_power'].values.reshape(len(features), 1))
+            features[['price', 'year', 'engine_volume', 'engine_power']] = self.scaler.fit_transform(features[['price', 'year', 'engine_volume', 'engine_power']].values)
             self.features = features
 
         return self.features
