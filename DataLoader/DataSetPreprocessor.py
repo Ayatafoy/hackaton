@@ -1,14 +1,14 @@
 import os
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import MaxAbsScaler
 
 
 class DataSetPreprocessor:
     def __init__(self):
         self.features = None
         self.label_map = None
-        self.scaler = Normalizer()
+        self.scaler = MaxAbsScaler()
 
     def get_features(self, base_dir):
 
