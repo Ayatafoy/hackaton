@@ -8,9 +8,9 @@ class SeResNet(torch.nn.Module):
         super().__init__()
         self.se_resnext50_32x4d = pm.se_resnext50_32x4d()
         self.max_pool = torch.nn.MaxPool2d(7, stride=1)
-        self.linear1 = torch.nn.Linear(2048, 1024)
-        self.last_linear = torch.nn.Linear(1024, num_classes)
-        self.batch_norm2 = nn.BatchNorm1d(1024)
+        self.linear1 = torch.nn.Linear(2048, 768)
+        self.last_linear = torch.nn.Linear(768, num_classes)
+        self.batch_norm1 = torch.nn.BatchNorm1d(768)
 
     def set_gr(self, rg):
         for l in [self.se_resnext50_32x4d.layer0,
@@ -25,7 +25,7 @@ class SeResNet(torch.nn.Module):
         x = self.max_pool(x)
         x = x.view(x.size(0), -1)
         x = self.linear1(x)
-        # x = self.batch_norm2(x)
+        x = self.batch_norm1(x)
         x = torch.nn.ReLU()(x)
         x = self.last_linear(x)
         return x

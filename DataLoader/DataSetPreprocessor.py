@@ -50,4 +50,20 @@ class DataSetPreprocessor:
 if __name__ == "__main__":
     data_dir = os.path.join("/Users/aromanov/Desktop/Cars")
     processor = DataSetPreprocessor()
-    processor.get_features(data_dir)
+    features = processor.get_features(data_dir)
+    car_brand_mapping = {}
+    car_model_mapping = {}
+    body_mapping = {}
+    color_mapping = {}
+    engine_type_mapping = {}
+    transmission_mapping = {}
+    rudder_mapping = {}
+    for row in features.itertuples():
+        car_brand_mapping[row.car_brand_cat] = row.car_brand
+        car_model_mapping[row.car_model_cat] = row.car_model
+        body_mapping[row.body_cat] = row.body
+        color_mapping[row.color_cat] = row.color
+        engine_type_mapping[row.engine_type_cat] = row.engine_type
+        transmission_mapping[row.transmission_cat] = row.transmission
+        rudder_mapping[row.rudder_cat] = row.rudder
+    x = 0

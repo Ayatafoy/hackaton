@@ -44,7 +44,8 @@ class CarDataSet(Dataset):
         engine_volume = self.features[idx, 18]
         engine_power = self.features[idx, 19]
 
-        sample = {'image': image,
+        sample = {'img_name': img_name,
+                  'image': image,
                   'car_brand': car_brand,
                   'car_model': car_model,
                   'body': body,

@@ -23,7 +23,8 @@ class Resize(object):
         final_img = np.array(final_img, dtype=np.double)
         final_img = np.divide(final_img, 255)
 
-        return {'image': final_img,
+        return {  'img_name': sample['img_name'],
+                  'image': final_img,
                   'car_brand': sample['car_brand'],
                   'car_model': sample['car_model'],
                   'body': sample['body'],
@@ -48,7 +49,8 @@ class ToTensor(object):
         # torch image: C X H X W
         image = image.transpose((2, 0, 1))
 
-        return {'image': torch.tensor(np.array(image, dtype=np.float32)),
+        return {'img_name': sample['img_name'],
+                'image': torch.tensor(np.array(image, dtype=np.float32)),
                 'car_brand': torch.tensor(np.array(sample['car_brand'], dtype=np.long)),
                 'car_model': torch.tensor(np.array(sample['car_model'], dtype=np.long)),
                 'body': torch.tensor(np.array(sample['body'], dtype=np.long)),
