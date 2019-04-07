@@ -1,14 +1,14 @@
 import os
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import Normalizer
 
 
 class DataSetPreprocessor:
     def __init__(self):
         self.features = None
         self.label_map = None
-        self.scaler = StandardScaler()
+        self.scaler = Normalizer()
 
     def get_features(self, base_dir):
 
@@ -43,6 +43,9 @@ class DataSetPreprocessor:
                                  'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power']]
 
             features['price'] = self.scaler.fit_transform(features['price'].values.reshape(len(features), 1))
+            # features['year'] = self.scaler.fit_transform(features['year'].values.reshape(len(features), 1))
+            # features['engine_volume'] = self.scaler.fit_transform(features['engine_volume'].values.reshape(len(features), 1))
+            # features['engine_power'] = self.scaler.fit_transform(features['engine_power'].values.reshape(len(features), 1))
             self.features = features
 
         return self.features
