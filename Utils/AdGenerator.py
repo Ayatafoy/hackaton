@@ -64,34 +64,47 @@ class AdGenerator:
         continous_logits = logits[rudder_position:]
 
         car_brand_id = np.argmax(car_brand_logits.detach().cpu().numpy(), axis=-1)
+        # print('car_brand_id: {}'.format(car_brand_id))
         car_model_id = np.argmax(car_model_logits.detach().cpu().numpy(), axis=-1)
+        # print('car_model_id: {}'.format(car_model_id))
         body_id = np.argmax(body_logits.detach().cpu().numpy(), axis=-1)
+        # print('body_id: {}'.format(body_id))
         color_id = np.argmax(color_logits.detach().cpu().numpy(), axis=-1)
+        # print('color_id: {}'.format(color_id))
         engine_type_id = np.argmax(engine_type_logits.detach().cpu().numpy(), axis=-1)
+        # print('engine_type_id: {}'.format(engine_type_id))
         transmission_id = np.argmax(transmission_logits.detach().cpu().numpy(), axis=-1)
+        # print('transmission_id: {}'.format(transmission_id))
         rudder_id = np.argmax(rudder_logits.detach().cpu().numpy(), axis=-1)
+        # print('rudder_id: {}'.format(rudder_id))
+
 
         # print(continous_logits.shape)
         # print(continous_logits.detach().numpy().reshape(1, 4).shape)
         continous_values = continous_logits.detach().numpy().reshape(1, 4)
         continous_values = np.concatenate((continous_values, continous_values, continous_values, continous_values), axis=0)
         continous_values = self.scaler.inverse_transform(continous_values)
-
+        year = int(math.fabs(continous_values[0][1]))
+        if year > 2019:
+            year = 2019
+        if year < 1950:
+            year = 1950
         ad_json = {
             "car_brand": self.car_brand_mapping[car_brand_id],
             "car_model": self.car_model_mapping[car_model_id],
-            "price": math.fabs(continous_values[0][0]),
-            "year": math.fabs(continous_values[0][1]),
+            "price": int(math.fabs(continous_values[0][0])),
+            "year": year,
             "body": self.body_mapping[body_id],
             "color": self.color_mapping[color_id],
             "engine_volume": math.fabs(continous_values[0][2]),
-            "engine_power": math.fabs(continous_values[0][3]),
+            "engine_power": int(math.fabs(continous_values[0][3])),
             "engine_type": self.engine_type_mapping[engine_type_id],
             "transmission": self.transmission_mapping[transmission_id],
             "rudder": self.rudder_mapping[rudder_id],
             "_id": file_id,
         }
 
+        # print(ad_json)
         return ad_json
 
     def get_ad_json(self, path_to_image, file_id):
@@ -110,8 +123,9 @@ class AdGenerator:
         final_img = final_img.transpose((2, 0, 1))
         img_tensor = torch.tensor(np.array(final_img, dtype=np.float32))
         img_tensor = img_tensor.unsqueeze(0)
-        batch = torch.cat((img_tensor, img_tensor), 0)
-        logits = self.resnet(batch)
+        self.resnet.set_gr(False)
+        self.resnet.eval()
+        logits = self.resnet(img_tensor)
 
         ad_json = self.parse_logits(logits[0], self.classes, file_id)
 
