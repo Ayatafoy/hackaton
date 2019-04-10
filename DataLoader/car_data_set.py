@@ -7,9 +7,9 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 import os
-from DataLoader.DataSetPreprocessor import DataSetPreprocessor
+from DataLoader.data_set_preprocessor import DataSetPreprocessor
 from sklearn import model_selection
-from DataLoader.Transformations import Resize, ToTensor
+from DataLoader.transformations import Resize, ToTensor
 import torch.utils.data as data
 
 

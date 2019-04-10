@@ -5,7 +5,7 @@ import random
 import torch
 import request
 import traceback
-from Utils.AdGenerator import AdGenerator
+from Utils.ad_generator import AdGenerator
 from flask import Flask, render_template, request, jsonify, send_file
 from flask_cors import cross_origin
 
@@ -15,6 +15,7 @@ UPLOAD_FOLDER = os.path.basename('uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ad_generator = AdGenerator()
 uploaded_advertisements = dict()
+
 
 @app.route('/api/')
 def hello_world():

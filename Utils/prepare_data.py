@@ -60,16 +60,14 @@ for car_name in cars:
             load_picture(img_src, img_id, path_to_product_data)
 
             cars = cars.append({'img_id': img_id, 'car_brand': car_brand, 'car_model': car_model, 'price': int(price),
-                                   'year': int(product.year), 'body': product.body, 'color': product.color,
-                                   'engine_volume': float(engine_volume), 'engine_power': int(engine_power),
-                                   'engine_type': engine_type,
-                                   'transmission': product.transmission,
-                                   'rudder': product.rudder}, ignore_index=True)
+                                'year': int(product.year), 'body': product.body, 'color': product.color,
+                                'engine_volume': float(engine_volume), 'engine_power': int(engine_power),
+                                'engine_type': engine_type,
+                                'transmission': product.transmission,
+                                'rudder': product.rudder}, ignore_index=True)
             print("Counter: {}".format(i))
         except Exception as e:
             print("Exception! {}".format(e))
             continue
 
     cars.to_csv(os.path.join(path_to_product_data, car_name + "_attributes.csv"), index=False)
-
-

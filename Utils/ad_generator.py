@@ -2,7 +2,7 @@ import os
 from PIL import Image
 import pandas as pd
 from sklearn.preprocessing import MaxAbsScaler
-from Model.SeResNet import SeResNet
+from Model.se_res_net import SeResNet
 import numpy as np
 import math
 import cv2
@@ -24,10 +24,13 @@ class AdGenerator:
             self.classes = pickle.load(f)
         with open('/Users/aromanov/PycharmProjects/Ottepel/SavedModels/features', 'rb') as f:
             self.features = pickle.load(f)
-        self.features = pd.DataFrame(self.features, index=range(len(self.features)), columns=['img_id', 'path_to_img', 'car_brand', 'car_model', 'body', 'color', 'engine_type',
-                                 'transmission', 'rudder', 'car_brand_cat',
-                                 'car_model_cat', 'body_cat', 'color_cat', 'engine_type_cat', 'transmission_cat',
-                                 'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power'])
+        self.features = pd.DataFrame(self.features, index=range(len(self.features)),
+                                     columns=['img_id', 'path_to_img', 'car_brand', 'car_model', 'body', 'color',
+                                              'engine_type',
+                                              'transmission', 'rudder', 'car_brand_cat',
+                                              'car_model_cat', 'body_cat', 'color_cat', 'engine_type_cat',
+                                              'transmission_cat',
+                                              'rudder_cat', 'price', 'year', 'engine_volume', 'engine_power'])
         self.car_brand_mapping = {}
         self.car_model_mapping = {}
         self.body_mapping = {}
@@ -78,11 +81,11 @@ class AdGenerator:
         rudder_id = np.argmax(rudder_logits.detach().cpu().numpy(), axis=-1)
         # print('rudder_id: {}'.format(rudder_id))
 
-
         # print(continous_logits.shape)
         # print(continous_logits.detach().numpy().reshape(1, 4).shape)
         continous_values = continous_logits.detach().numpy().reshape(1, 4)
-        continous_values = np.concatenate((continous_values, continous_values, continous_values, continous_values), axis=0)
+        continous_values = np.concatenate((continous_values, continous_values, continous_values, continous_values),
+                                          axis=0)
         continous_values = self.scaler.inverse_transform(continous_values)
         year = int(math.fabs(continous_values[0][1]))
         if year > 2019:
@@ -136,4 +139,3 @@ if __name__ == "__main__":
     img_name = os.path.join("/Users/aromanov/PycharmProjects/Ottepel/uploads/0x37dd7ed4e0a94ae43a384ffe97bc4054.jpg")
     generator = AdGenerator()
     logits = generator.get_ad_json(img_name, 0)
-
